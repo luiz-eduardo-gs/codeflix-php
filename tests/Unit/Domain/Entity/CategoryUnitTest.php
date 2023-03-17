@@ -3,6 +3,7 @@
 namespace Tests\Unit\Domain\Entity;
 
 use Core\Domain\Entity\Category;
+use Core\Domain\Exception\EntityValidationException;
 use PHPUnit\Framework\TestCase;
 
 class CategoryUnitTest extends TestCase
@@ -65,5 +66,15 @@ class CategoryUnitTest extends TestCase
 
         $this->assertEquals('new name', $category->name);
         $this->assertEquals('new description', $category->description);
+    }
+
+    public function testNameException()
+    {
+        $this->expectException(EntityValidationException::class);
+
+        new Category(
+            name: 'ne',
+            description: 'new desc',
+        );
     }
 }
