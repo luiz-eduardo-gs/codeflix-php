@@ -9,3 +9,6 @@ docker-down:
 
 docker-bash:
 	docker compose exec app bash
+
+docker-test:
+	docker compose exec app ./vendor/bin/phpunit
