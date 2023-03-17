@@ -77,4 +77,14 @@ class CategoryUnitTest extends TestCase
             description: 'new desc',
         );
     }
+
+    public function testDescriptionException()
+    {
+        $this->expectException(EntityValidationException::class);
+
+        new Category(
+            name: 'new cat',
+            description: random_bytes(999999),
+        );
+    }
 }

@@ -40,8 +40,8 @@ class Category
     private function validate(): void
     {
         DomainValidation::notNull($this->name);
-        DomainValidation::stringMaxLength($this->name);
         DomainValidation::stringMinLength($this->name);
+        DomainValidation::stringMaxLength($this->name);
 
         if ($this->description !== '') {
             DomainValidation::stringMaxLength($this->description);
