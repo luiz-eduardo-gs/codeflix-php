@@ -16,6 +16,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
 {
     private $entity;
     private $repository;
+    private $spy;
     private $inputDto;
 
     public function testCreateNewCategory(): void
@@ -40,5 +41,13 @@ class CreateCategoryUseCaseUnitTest extends TestCase
         $this->assertInstanceOf(CreateCategoryOutputDto::class, $outputDto);
         $this->assertEquals($categoryName, $outputDto->name);
         $this->assertEquals('', $outputDto->description);
+
+        $this->spy = Mockery::spy(stdClass::class, CategoryRepositoryInterface::class);
+        $this->spy->shouldReceive('insert')->andReturn($this->entity);
+
+        $useCase = new CreateCategoryUseCase($this->spy);
+        $outputDto = $useCase->execute($this->inputDto);
+
+        $this->spy->shouldHaveReceived('insert');
     }
 }
