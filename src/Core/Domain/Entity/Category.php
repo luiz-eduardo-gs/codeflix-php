@@ -2,7 +2,6 @@
 
 namespace Core\Domain\Entity;
 
-use Core\Domain\Exception\EntityValidationException;
 use Core\Domain\Entity\Trait\MagicProperties;
 use Core\Domain\Validation\DomainValidation;
 use Core\Domain\ValueObject\Uuid;
