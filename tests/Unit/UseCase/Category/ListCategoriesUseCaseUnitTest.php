@@ -14,9 +14,7 @@ class ListCategoriesUseCaseUnitTest extends TestCase
 {
     public function testShouldReturnAnEmptyList(): void
     {
-        $pagination = Mockery::mock(PaginationInterface::class);
-        $pagination->shouldReceive('total')->andReturn(0);
-        $pagination->shouldReceive('items')->andReturn([]);
+        $pagination = $this->mockPagination();
 
         $repository = Mockery::mock(CategoryRepositoryInterface::class);
         $repository->shouldReceive('paginate')->andReturn($pagination);
@@ -30,5 +28,27 @@ class ListCategoriesUseCaseUnitTest extends TestCase
 
         $this->assertCount(0, $outputDto->items);
         $this->assertInstanceOf(ListCategoriesOutputDto::class, $outputDto);
+    }
+
+    private function mockPagination(): PaginationInterface
+    {
+        $pagination = Mockery::mock(PaginationInterface::class);
+        $pagination->shouldReceive('items')->andReturn([]);
+        $pagination->shouldReceive('total')->andReturn(0);
+        $pagination->shouldReceive('lastPage')->andReturn(0);
+        $pagination->shouldReceive('firstPage')->andReturn(0);
+        $pagination->shouldReceive('currentPage')->andReturn(0);
+        $pagination->shouldReceive('perPage')->andReturn(0);
+        $pagination->shouldReceive('to')->andReturn(0);
+        $pagination->shouldReceive('from')->andReturn(0);
+
+        return $pagination;
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+
+        parent::tearDown();
     }
 }
