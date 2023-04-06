@@ -10,7 +10,6 @@ use Core\UseCase\DTO\Category\CreateCategoryInputDto;
 use Core\UseCase\DTO\Category\CreateCategoryOutputDto;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class CreateCategoryUseCaseUnitTest extends TestCase
 {
@@ -28,7 +27,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
             $categoryUuid,
             $categoryName,
         ]);
-        $this->repository = Mockery::mock(stdClass::class, CategoryRepositoryInterface::class);
+        $this->repository = Mockery::mock(CategoryRepositoryInterface::class);
         $this->repository->shouldReceive('insert')->andReturn($this->entity);
 
         $this->inputDto = Mockery::mock(CreateCategoryInputDto::class, [
@@ -42,7 +41,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
         $this->assertEquals($categoryName, $outputDto->name);
         $this->assertEquals('', $outputDto->description);
 
-        $this->spy = Mockery::spy(stdClass::class, CategoryRepositoryInterface::class);
+        $this->spy = Mockery::spy(CategoryRepositoryInterface::class);
         $this->spy->shouldReceive('insert')->andReturn($this->entity);
 
         $useCase = new CreateCategoryUseCase($this->spy);
