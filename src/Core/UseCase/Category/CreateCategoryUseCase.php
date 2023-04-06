@@ -11,11 +11,9 @@ use Core\UseCase\DTO\Category\{
 
 class CreateCategoryUseCase
 {
-    private CategoryRepositoryInterface $repository;
 
-    public function __construct(CategoryRepositoryInterface $repository)
+    public function __construct(private CategoryRepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
     public function execute(CreateCategoryInputDto $input): CreateCategoryOutputDto

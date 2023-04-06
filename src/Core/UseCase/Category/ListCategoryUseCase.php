@@ -8,11 +8,8 @@ use Core\UseCase\DTO\Category\ListCategoryOutputDto;
 
 class ListCategoryUseCase
 {
-    private CategoryRepositoryInterface $repository;
-
-    public function __construct(CategoryRepositoryInterface $repository)
+    public function __construct(private CategoryRepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
     public function execute(ListCategoryInputDto $input): ListCategoryOutputDto
