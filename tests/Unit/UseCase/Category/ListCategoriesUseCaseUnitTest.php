@@ -9,6 +9,7 @@ use Core\UseCase\DTO\Category\ListCategoriesInputDto;
 use Core\UseCase\DTO\Category\ListCategoriesOutputDto;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ListCategoriesUseCaseUnitTest extends TestCase
 {
@@ -28,12 +29,52 @@ class ListCategoriesUseCaseUnitTest extends TestCase
 
         $this->assertCount(0, $outputDto->items);
         $this->assertInstanceOf(ListCategoriesOutputDto::class, $outputDto);
+
+        $spy = Mockery::spy(CategoryRepositoryInterface::class);
+        $spy->shouldReceive('paginate')->andReturn($pagination);
+        $useCase = new ListCategoriesUseCase($spy);
+        $useCase->execute($inputDto);
+        $spy->shouldHaveReceived('paginate');
     }
 
-    private function mockPagination(): PaginationInterface
+    public function testShouldReturnAListOfCategories(): void
+    {
+        $items = new stdClass();
+        $items->id = 'id';
+        $items->name = 'name';
+        $items->description = 'description';
+        $items->is_active = 'is_active';
+        $items->created_at = 'created_at';
+        $items->updated_at = 'updated_at';
+        $items->deleted_at = 'deleted_at';
+
+        $pagination = $this->mockPagination([$items]);
+
+        $repository = Mockery::mock(CategoryRepositoryInterface::class);
+        $repository->shouldReceive('paginate')->andReturn($pagination);
+
+        $useCase = new ListCategoriesUseCase($repository);
+        $inputDto = Mockery::mock(ListCategoriesInputDto::class, [
+            'cat',
+            'DESC',
+        ]);
+        $outputDto = $useCase->execute($inputDto);
+
+        $this->assertCount(1, $outputDto->items);
+        $this->assertInstanceOf(stdClass::class, $outputDto->items[0]);
+        $this->assertInstanceOf(ListCategoriesOutputDto::class, $outputDto);
+
+        $spy = Mockery::spy(CategoryRepositoryInterface::class);
+        $spy->shouldReceive('paginate')->andReturn($pagination);
+        $useCase = new ListCategoriesUseCase($spy);
+        $useCase->execute($inputDto);
+        $spy->shouldHaveReceived('paginate');
+    }
+
+    private function mockPagination(array $items = []): PaginationInterface
     {
         $pagination = Mockery::mock(PaginationInterface::class);
-        $pagination->shouldReceive('items')->andReturn([]);
+        $pagination->shouldReceive('items')->andReturn($items);
         $pagination->shouldReceive('total')->andReturn(0);
         $pagination->shouldReceive('lastPage')->andReturn(0);
         $pagination->shouldReceive('firstPage')->andReturn(0);
