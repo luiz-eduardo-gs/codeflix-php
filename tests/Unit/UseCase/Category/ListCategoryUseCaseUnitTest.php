@@ -17,6 +17,7 @@ class ListCategoryUseCaseUnitTest extends TestCase
     private $repository;
     private $inputDto;
     private $useCase;
+    private $spy;
 
     public function testShouldGetCategoryById(): void
     {
@@ -33,16 +34,26 @@ class ListCategoryUseCaseUnitTest extends TestCase
         $this->repository->shouldReceive('findById')
             ->with($uuid)
             ->andReturn($this->entity);
-        
+
         $this->inputDto = Mockery::mock(ListCategoryInputDto::class, [
             $uuid,
         ]);
-        
+
         $this->useCase = new ListCategoryUseCase($this->repository);
         $outputDto = $this->useCase->execute($this->inputDto);
 
         $this->assertInstanceOf(ListCategoryOutputDto::class, $outputDto);
         $this->assertEquals('category test', $outputDto->name);
         $this->assertEquals($uuid, $outputDto->id);
+
+        $this->spy = Mockery::spy(CategoryRepositoryInterface::class);
+        $this->spy->shouldReceive('findById')
+            ->with($uuid)
+            ->andReturn($this->entity);
+
+        $this->useCase = new ListCategoryUseCase($this->spy);
+        $outputDto = $this->useCase->execute($this->inputDto);
+        
+        $this->spy->shouldHaveReceived('findById');
     }
 }
