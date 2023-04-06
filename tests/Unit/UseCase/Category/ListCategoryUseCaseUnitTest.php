@@ -13,47 +13,42 @@ use Ramsey\Uuid\Uuid;
 
 class ListCategoryUseCaseUnitTest extends TestCase
 {
-    private $entity;
-    private $repository;
-    private $inputDto;
-    private $useCase;
-    private $spy;
 
     public function testShouldGetCategoryById(): void
     {
         $uuid = (string) Uuid::uuid4()->toString();
 
-        $this->entity = Mockery::mock(Category::class, [
+        $entity = Mockery::mock(Category::class, [
             $uuid,
             'category test',
         ]);
 
-        $this->entity->shouldReceive('id')->andReturn($uuid);
+        $entity->shouldReceive('id')->andReturn($uuid);
 
-        $this->repository = Mockery::mock(CategoryRepositoryInterface::class);
-        $this->repository->shouldReceive('findById')
+        $repository = Mockery::mock(CategoryRepositoryInterface::class);
+        $repository->shouldReceive('findById')
             ->with($uuid)
-            ->andReturn($this->entity);
+            ->andReturn($entity);
 
-        $this->inputDto = Mockery::mock(ListCategoryInputDto::class, [
+        $inputDto = Mockery::mock(ListCategoryInputDto::class, [
             $uuid,
         ]);
 
-        $this->useCase = new ListCategoryUseCase($this->repository);
-        $outputDto = $this->useCase->execute($this->inputDto);
+        $useCase = new ListCategoryUseCase($repository);
+        $outputDto = $useCase->execute($inputDto);
 
         $this->assertInstanceOf(ListCategoryOutputDto::class, $outputDto);
         $this->assertEquals('category test', $outputDto->name);
         $this->assertEquals($uuid, $outputDto->id);
 
-        $this->spy = Mockery::spy(CategoryRepositoryInterface::class);
-        $this->spy->shouldReceive('findById')
+        $spy = Mockery::spy(CategoryRepositoryInterface::class);
+        $spy->shouldReceive('findById')
             ->with($uuid)
-            ->andReturn($this->entity);
+            ->andReturn($entity);
 
-        $this->useCase = new ListCategoryUseCase($this->spy);
-        $outputDto = $this->useCase->execute($this->inputDto);
+        $useCase = new ListCategoryUseCase($spy);
+        $outputDto = $useCase->execute($inputDto);
         
-        $this->spy->shouldHaveReceived('findById');
+        $spy->shouldHaveReceived('findById');
     }
 }
