@@ -19,7 +19,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
     private $spy;
     private $inputDto;
 
-    public function testCreateNewCategory(): void
+    public function testShouldCreateANewCategory(): void
     {
         $categoryUuid = Uuid::random();
         $categoryName = 'new cat';
