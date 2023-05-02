@@ -5,8 +5,8 @@ namespace Tests\Unit\UseCase\Category;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\ValueObject\Uuid;
 use Core\UseCase\Category\DeleteCategoryUseCase;
-use Core\UseCase\DTO\Category\DeleteCategoryInputDto;
-use Core\UseCase\DTO\Category\DeleteCategoryOutputDto;
+use Core\UseCase\DTO\Category\DeleteCategory\DeleteCategoryInputDto;
+use Core\UseCase\DTO\Category\DeleteCategory\DeleteCategoryOutputDto;
 use PHPUnit\Framework\TestCase;
 
 class DeleteCategoryUseCaseUnitTest extends TestCase

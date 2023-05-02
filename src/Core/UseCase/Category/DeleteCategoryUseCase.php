@@ -3,8 +3,8 @@
 namespace Core\UseCase\Category;
 
 use Core\Domain\Repository\CategoryRepositoryInterface;
-use Core\UseCase\DTO\Category\DeleteCategoryInputDto;
-use Core\UseCase\DTO\Category\DeleteCategoryOutputDto;
+use Core\UseCase\DTO\Category\DeleteCategory\DeleteCategoryInputDto;
+use Core\UseCase\DTO\Category\DeleteCategory\DeleteCategoryOutputDto;
 
 class DeleteCategoryUseCase
 {

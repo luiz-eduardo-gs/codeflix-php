@@ -6,8 +6,8 @@ use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Entity\Category;
 use Core\Domain\ValueObject\Uuid;
 use Core\UseCase\Category\UpdateCategoryUseCase;
-use Core\UseCase\DTO\Category\UpdateCategoryInputDto;
-use Core\UseCase\DTO\Category\UpdateCategoryOutputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryInputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryOutputDto;
 use PHPUnit\Framework\TestCase;
 
 class UpdateCategoryUseCaseUnitTest extends TestCase

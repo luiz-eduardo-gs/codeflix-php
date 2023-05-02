@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\UseCase\DTO\Category;
+namespace Core\UseCase\DTO\Category\ListCategory;
 
-class CreateCategoryOutputDto
+class ListCategoryOutputDto
 {
     public function __construct(
         public string $id,

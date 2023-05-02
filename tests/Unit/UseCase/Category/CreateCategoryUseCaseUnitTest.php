@@ -6,8 +6,8 @@ use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Entity\Category;
 use Core\Domain\ValueObject\Uuid;
 use Core\UseCase\Category\CreateCategoryUseCase;
-use Core\UseCase\DTO\Category\CreateCategoryInputDto;
-use Core\UseCase\DTO\Category\CreateCategoryOutputDto;
+use Core\UseCase\DTO\Category\CreateCategory\CreateCategoryInputDto;
+use Core\UseCase\DTO\Category\CreateCategory\CreateCategoryOutputDto;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
