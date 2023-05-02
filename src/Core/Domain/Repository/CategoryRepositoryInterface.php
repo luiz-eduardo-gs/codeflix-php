@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Doamin\Repository;
+namespace Core\Domain\Repository;
 
 use Core\Domain\Entity\Category;
 use Core\Domain\Repository\PaginationInterface;

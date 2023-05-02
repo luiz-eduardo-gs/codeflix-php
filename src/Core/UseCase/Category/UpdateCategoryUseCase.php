@@ -2,7 +2,7 @@
 
 namespace Core\UseCase\Category;
 
-use Core\Doamin\Repository\CategoryRepositoryInterface;
+use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Entity\Category;
 use Core\UseCase\DTO\Category\UpdateCategoryInputDto;
 use Core\UseCase\DTO\Category\UpdateCategoryOutputDto;
@@ -22,6 +22,7 @@ class UpdateCategoryUseCase
         $category->update(
             name: $input->name,
             description: $input->description,
+            isActive: $input->isActive,
         );
 
         $updatedCategory = $this->repository->update($category);

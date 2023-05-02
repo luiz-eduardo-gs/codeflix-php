@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\UseCase\Category;
 
-use Core\Doamin\Repository\CategoryRepositoryInterface;
+use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Repository\PaginationInterface;
 use Core\UseCase\Category\ListCategoriesUseCase;
 use Core\UseCase\DTO\Category\ListCategoriesInputDto;

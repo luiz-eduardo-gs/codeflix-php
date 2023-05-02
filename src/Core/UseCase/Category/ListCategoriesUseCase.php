@@ -2,7 +2,7 @@
 
 namespace Core\UseCase\Category;
 
-use Core\Doamin\Repository\CategoryRepositoryInterface;
+use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\DTO\Category\ListCategoriesInputDto;
 use Core\UseCase\DTO\Category\ListCategoriesOutputDto;
 

@@ -2,7 +2,7 @@
 
 namespace Core\UseCase\Category;
 
-use Core\Doamin\Repository\CategoryRepositoryInterface;
+use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Entity\Category;
 use Core\UseCase\DTO\Category\{
     CreateCategoryInputDto,
