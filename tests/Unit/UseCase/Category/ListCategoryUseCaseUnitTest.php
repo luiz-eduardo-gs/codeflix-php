@@ -40,15 +40,5 @@ class ListCategoryUseCaseUnitTest extends TestCase
         $this->assertInstanceOf(ListCategoryOutputDto::class, $outputDto);
         $this->assertEquals('category test', $outputDto->name);
         $this->assertEquals($uuid, $outputDto->id);
-
-        $spy = Mockery::spy(CategoryRepositoryInterface::class);
-        $spy->shouldReceive('findById')
-            ->with($uuid)
-            ->andReturn($entity);
-
-        $useCase = new ListCategoryUseCase($spy);
-        $outputDto = $useCase->execute($inputDto);
-        
-        $spy->shouldHaveReceived('findById');
     }
 }

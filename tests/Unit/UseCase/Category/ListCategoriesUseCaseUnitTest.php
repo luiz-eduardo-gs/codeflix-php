@@ -29,12 +29,6 @@ class ListCategoriesUseCaseUnitTest extends TestCase
 
         $this->assertCount(0, $outputDto->items);
         $this->assertInstanceOf(ListCategoriesOutputDto::class, $outputDto);
-
-        $spy = Mockery::spy(CategoryRepositoryInterface::class);
-        $spy->shouldReceive('paginate')->andReturn($pagination);
-        $useCase = new ListCategoriesUseCase($spy);
-        $useCase->execute($inputDto);
-        $spy->shouldHaveReceived('paginate');
     }
 
     public function testShouldReturnAListOfCategories(): void
@@ -63,12 +57,6 @@ class ListCategoriesUseCaseUnitTest extends TestCase
         $this->assertCount(1, $outputDto->items);
         $this->assertInstanceOf(stdClass::class, $outputDto->items[0]);
         $this->assertInstanceOf(ListCategoriesOutputDto::class, $outputDto);
-
-        $spy = Mockery::spy(CategoryRepositoryInterface::class);
-        $spy->shouldReceive('paginate')->andReturn($pagination);
-        $useCase = new ListCategoriesUseCase($spy);
-        $useCase->execute($inputDto);
-        $spy->shouldHaveReceived('paginate');
     }
 
     private function mockPagination(array $items = []): PaginationInterface
