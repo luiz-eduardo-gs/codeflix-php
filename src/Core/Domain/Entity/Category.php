@@ -12,11 +12,11 @@ class Category
     use MagicProperties;
 
     public function __construct(
-        protected Uuid|string $id = '',
-        protected string $name = '',
-        protected string $description = '',
-        protected bool $isActive = true,
-        protected DateTime|string $createdAt = '',
+        private Uuid|string $id = '',
+        private string $name = '',
+        private string $description = '',
+        private bool $isActive = true,
+        private DateTime|string $createdAt = '',
     ) {
         $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
         $this->createdAt = $this->createdAt ? new DateTime($this->createdAt) : new DateTime();
