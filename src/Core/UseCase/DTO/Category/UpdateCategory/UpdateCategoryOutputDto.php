@@ -8,8 +8,8 @@ class UpdateCategoryOutputDto
         public string $id,
         public string $name,
         public string $description,
-        public bool   $isActive
-    )
-    {
+        public bool $isActive,
+        public string $createdAt,
+    ) {
     }
 }

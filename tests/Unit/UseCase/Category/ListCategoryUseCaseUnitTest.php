@@ -22,6 +22,7 @@ class ListCategoryUseCaseUnitTest extends TestCase
             $uuid,
             'category test',
         ]);
+        $entity->shouldReceive('createdAt');
 
         $entity->shouldReceive('id')->andReturn($uuid);
 

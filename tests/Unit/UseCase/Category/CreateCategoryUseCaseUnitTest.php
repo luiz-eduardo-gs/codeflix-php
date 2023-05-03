@@ -22,6 +22,8 @@ class CreateCategoryUseCaseUnitTest extends TestCase
             $categoryUuid,
             $categoryName,
         ]);
+        $entity->shouldReceive('createdAt');
+
         $repository = Mockery::mock(CategoryRepositoryInterface::class);
         $repository->shouldReceive('insert')->andReturn($entity);
 

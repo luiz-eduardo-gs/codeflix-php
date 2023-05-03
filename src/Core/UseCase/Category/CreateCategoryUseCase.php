@@ -31,6 +31,7 @@ class CreateCategoryUseCase
             name: $inserted->name,
             description: $inserted->description,
             is_active: $inserted->isActive,
+            created_at: $inserted->createdAt(),
         );
     }
 }
