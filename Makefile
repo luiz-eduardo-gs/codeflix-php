@@ -11,4 +11,4 @@ docker-bash:
 	docker compose exec app bash
 
 docker-test:
-	docker compose exec app ./vendor/bin/phpunit
+	docker compose exec app php artisan test
