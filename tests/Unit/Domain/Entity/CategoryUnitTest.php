@@ -66,11 +66,13 @@ class CategoryUnitTest extends TestCase
         $category->update(
             name: 'new name',
             description: 'new description',
+            isActive: true,
         );
 
         $this->assertEquals($uuid, $category->id);
         $this->assertEquals('new name', $category->name);
         $this->assertEquals('new description', $category->description);
+        $this->assertTrue($category->isActive);
     }
 
     public function testNameException()
