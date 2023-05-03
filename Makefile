@@ -12,3 +12,6 @@ docker-bash:
 
 docker-test:
 	docker compose exec app php artisan test
+
+docker-db:
+	docker compose exec db mysql -uroot -p
