@@ -15,3 +15,14 @@ docker-test:
 
 docker-db:
 	docker compose exec db mysql -uroot -p
+
+copy-env:
+	cp .env.example .env
+
+laravel-key-generate:
+	docker compose exec app php artisan key:generate
+
+composer-install:
+	docker compose exec app composer install
+
+docker-setup: docker-build composer-install copy-env laravel-key-generate docker-test
