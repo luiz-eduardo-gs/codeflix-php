@@ -9,25 +9,30 @@ use PHPUnit\Framework\TestCase;
 
 class CategoryUnitTest extends TestCase
 {
-    public function testAttributes(): void
+    public function testShouldBeAbleToInstantiateCategorySuccessfully(): void
     {
+        $expectedName = 'Movies';
+        $expectedDescription = 'Most watched.';
+        $expectedIsActive = true;
+
         $category = new Category(
-            name: 'new cat',
-            description: 'new desc',
-            isActive: true,
+            name: $expectedName,
+            description: $expectedDescription,
+            isActive: $expectedIsActive,
         );
 
         $this->assertNotEmpty($category->id);
-        $this->assertEquals('new cat', $category->name);
-        $this->assertEquals('new desc', $category->description);
-        $this->assertEquals(true, $category->isActive);
+        $this->assertEquals($expectedName, $category->name);
+        $this->assertEquals($expectedDescription, $category->description);
+        $this->assertEquals($expectedIsActive, $category->isActive);
         $this->assertNotEmpty($category->createdAt());
     }
 
-    public function testActivated(): void
+    public function testShouldBeAbleToActivateCategorySuccessfully(): void
     {
         $category = new Category(
-            name: 'new cat',
+            name: 'Movies',
+            description: 'Most watched.',
             isActive: false,
         );
 
@@ -38,10 +43,12 @@ class CategoryUnitTest extends TestCase
         $this->assertTrue($category->isActive);
     }
 
-    public function testDeactivated(): void
+    public function testShouldBeAbleToDeactivateCategorySuccessfully(): void
     {
         $category = new Category(
-            name: 'new cat',
+            name: 'Movies',
+            description: 'Most watched.',
+            isActive: true,
         );
 
         $this->assertTrue($category->isActive);
@@ -51,46 +58,48 @@ class CategoryUnitTest extends TestCase
         $this->assertFalse($category->isActive);
     }
     
-    public function testUpdated(): void
+    public function testShouldBeAbleToUpdateACategory(): void
     {
-        $uuid = Uuid::random();
+        $expectedId = Uuid::random();
+        $expectedName = 'Movies';
+        $expectedDescription = 'Most watched category.';
 
         $category = new Category(
-            id: $uuid,
-            name: 'new cat',
-            description: 'new desc',
-            isActive: true,
+            id: $expectedId,
+            name: 'Movie',
+            description: 'Most watched.',
+            isActive: false,
             createdAt: '2023-01-01 12:12:12',
         );
 
         $category->update(
-            name: 'new name',
-            description: 'new description',
+            name: $expectedName,
+            description: $expectedDescription,
             isActive: true,
         );
 
-        $this->assertEquals($uuid, $category->id);
-        $this->assertEquals('new name', $category->name);
-        $this->assertEquals('new description', $category->description);
+        $this->assertEquals($expectedId, $category->id);
+        $this->assertEquals($expectedName, $category->name);
+        $this->assertEquals($expectedDescription, $category->description);
         $this->assertTrue($category->isActive);
     }
 
-    public function testNameException()
+    public function testShouldThrowAnExceptionWhenNameIsInvalid(): void
     {
         $this->expectException(EntityValidationException::class);
 
         new Category(
-            name: 'ne',
-            description: 'new desc',
+            name: 'Mov',
+            description: 'Most watched.',
         );
     }
 
-    public function testDescriptionException()
+    public function testShouldThrowAnExceptionWhenDescriptionIsInvalid(): void
     {
         $this->expectException(EntityValidationException::class);
 
         new Category(
-            name: 'new cat',
+            name: 'Movies',
             description: random_bytes(999999),
         );
     }
