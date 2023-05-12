@@ -8,40 +8,34 @@ use PHPUnit\Framework\TestCase;
 
 class DomainValidationUnitTest extends TestCase
 {
-    public function testNotNull(): void
+    public function testShouldThrowExceptionWhenValueIsEmpty(): void
     {
-        $value = '';
-
         $this->expectException(EntityValidationException::class);
 
-        DomainValidation::notNull($value);
+        DomainValidation::shouldNotBeEmpty('');
     }
 
-    public function testNotNullWithCustomExceptionMessage(): void
+    public function testShouldThrowExceptionWhenValueIsEmptyWithCustomExceptionMessage(): void
     {
-        $value = '';
-        
-        $this->expectException(EntityValidationException::class);
-        $this->expectExceptionMessage('custom error');
+        $expectedExceptionMessage = 'A custom error.';
 
-        DomainValidation::notNull($value, 'custom error');
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        DomainValidation::shouldNotBeEmpty('', $expectedExceptionMessage);
     }
 
-    public function testStringMaxLength(): void
+    public function testValueShouldNotExceedMaxLength(): void
     {
-        $value = 'tes';
-
         $this->expectException(EntityValidationException::class);
 
-        DomainValidation::stringMaxLength($value, 3, 'custom error');
+        DomainValidation::stringMaxLength('A value', 3);
     }
 
-    public function testStringMinLength(): void
+    public function testValueLengthShouldNotBeLowerThanMin(): void
     {
-        $value = 'test';
-
         $this->expectException(EntityValidationException::class);
 
-        DomainValidation::stringMinLength($value, 8, 'custom error');
+        DomainValidation::stringMinLength('A value', 16);
     }
 }

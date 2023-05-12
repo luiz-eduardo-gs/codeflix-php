@@ -60,7 +60,7 @@ class Category
 
     private function validate(): void
     {
-        DomainValidation::notNull($this->name);
+        DomainValidation::shouldNotBeEmpty($this->name);
         DomainValidation::stringMinLength($this->name);
         DomainValidation::stringMaxLength($this->name);
 
